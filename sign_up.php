@@ -1,5 +1,19 @@
 <?php
 include("tpl/header.php");
+$message ="";
+if (!empty($_POST)) {
+    $errors = [];
+    $email = trim(strip_tags($_POST["inputEmail"]));
+    $retypeEmail = trim(strip_tags($_POST["inputRetypeEmail"]));  
+    $password = trim(strip_tags($_POST["password"]));
+    $retypePassword = trim(strip_tags($_POST["inputRetypePassword"]));
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors["email"] = "L'email nest pas valide";
+    }
+    if($password != $retypePassword){
+        $errors["retypePassword"]= "Le mot de passe ne correspond pas veuillez retaper votre mot de passe";
+    }
+}
 ?>
 
 <form action="" method="post">
@@ -13,8 +27,9 @@ include("tpl/header.php");
                 <?php echo isset($errors["email"]) ? "<p class=\"error\">{$errors["email"]}</p>" : "" ?>
             </div>
             <div class="form-group">
-                <label for="confirmEmail">confirmer email</label>
-                <input type="text">
+                <label for="confirmEmail">Confirmer email :</label>
+                <input type="email" name="email" id="inputRetypeEmail" value="<?= isset($retypeEmail) ? $retypeEmail : "" ?>">
+                <?php echo isset($errors["retypeEmail"]) ? "<p class=\"error\">{$errors["email"]}</p>" : "" ?>
             </div>
 
         </div>
