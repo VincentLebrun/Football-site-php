@@ -3,10 +3,10 @@ include("tpl/header.php");
 $message ="";
 if (!empty($_POST)) {
     $errors = [];
-    $email = trim(strip_tags($_POST["inputEmail"]));
-    $retypeEmail = trim(strip_tags($_POST["RetypeEmail"]));  
+    $email = trim(strip_tags($_POST["email"]));
+    $retypeEmail = trim(strip_tags($_POST["retypeEmail"]));  
     $password = trim(strip_tags($_POST["password"]));
-    $retypePassword = trim(strip_tags($_POST["RetypePassword"]));
+    $retypePassword = trim(strip_tags($_POST["retypePassword"]));
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors["email"] = "L'email nest pas valide";
     }
@@ -19,7 +19,6 @@ if (!empty($_POST)) {
     $query = $db->prepare("INSERT INTO users (email, password ) VALUES (:email, :password)");
     $query->bindParam("email", $email);
     $query->bindParam(":password", $password);
-    
     if($query->execute()) {
         header("Location: login.php" );
     }else {
@@ -39,7 +38,7 @@ if (!empty($_POST)) {
             </div>
             <div class="form-group">
                 <label for="confirmEmail">Confirmer email :</label>
-                <input type="email" name="email" id="inputRetypeEmail" value="<?= isset($retypeEmail) ? $retypeEmail : "" ?>">
+                <input type="email" name="retypeEmail" id="inputRetypeEmail" value="<?= isset($retypeEmail) ? $retypeEmail : "" ?>">
                 <?php echo isset($errors["retypeEmail"]) ? "<p class=\"error\">{$errors["email"]}</p>" : "" ?>
             </div>
         </div>
@@ -50,7 +49,7 @@ if (!empty($_POST)) {
                 <?php echo isset($errors["password"]) ? "<p class=\"error\">{$errors["password"]}</p>" : "" ?>
             </div>
             <div class="form-group">
-                <label for="inputRetypePassword">Confirmation le mot de passe :</label>
+                <label for="inputRetypePassword">Confirmation du mot de passe :</label>
                 <input type="password" name="retypePassword" id="inputRetypePassword" value="<?= isset($retypePassword) ? $retypePassword : "" ?>">
                 <?php echo isset($errors["retypePassword"]) ? "<p class=\"error\">{$errors["retypePassword"]}</p>" : "" ?>
             </div>
@@ -58,8 +57,6 @@ if (!empty($_POST)) {
         <input type="submit" value="Création du compte">
     </div>
 </form>
-
-
 <?php
 include("tpl/footer.php");
 ?>
