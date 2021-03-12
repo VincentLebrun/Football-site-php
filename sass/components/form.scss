@@ -1,0 +1,33 @@
+
+.formWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h2 {
+        display: flex;
+        justify-content: center;
+    }
+    .wrapper {
+        display: flex;
+        justify-content: space-around;
+
+        align-items: center;
+
+        .form-group {
+            font-family: "subset-AvantGarde-Bold";
+            font-size: 1.4rem;
+            display: flex;
+            flex-direction: column;
+            
+
+            input {
+                width: 55rem;
+                height: 4rem;
+                border: solid 1px white;
+                background-color: black;
+                color: white;
+                font-size: 2rem;
+            }
+        }
+    }
+}
